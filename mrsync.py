@@ -6,4 +6,3 @@ else:
     result = subprocess.call(["ls","-l",sys.argv[1]])
     #result=result+subprocess.run(["ls","-d","-l",sys.argv[1]])
 print("test")
-print(result)
