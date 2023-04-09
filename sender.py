@@ -1,11 +1,5 @@
-import os,sys,subprocess
+import filelist
 
-if sys.argv[1][-1]=="/":
-    result = subprocess.run(["ls",sys.argv[1]],capture_output=True)
-    liste=result.stdout.decode().split()
-else:
-    result = subprocess.run(["ls",sys.argv[1]],capture_output=True)
-    liste=[sys.argv[1]]
-    liste.append(result.stdout.decode().split())
-
-print(liste)
+print(filelist.list_files("reptest"))
+print("\n")
+print(filelist.list_files2("reptest"))

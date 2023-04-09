@@ -1,9 +1,16 @@
 import os,sys
 
+'''
+Make a list of all files and repertories of a given path,starting at the current path.
+If the path (i.e. the argument) finishes with a '/', then not include the path in the list,
+else include it. 
+'''
+
 def list_files(path):
     result = []
     if os.path.isdir(path):
         if path[-1] != '/':
+            result.append(path)
             path += '/'
         for file in os.listdir(path):
             full_path = path + file
@@ -15,4 +22,17 @@ def list_files(path):
         result.append(path)
     return result
 
-print(list_files("reptest"))
+
+def list_files2(path):
+    result = []
+    if os.path.isdir(path):
+        for file in os.listdir(path):
+            if os.path.isdir(path+"/"+file+"/"):
+                result.append(list_files2(path+"/"+file))
+            else:
+                result.append(file)
+        if path[-1] != '/':
+            return [os.path.basename(path), result]
+        return result
+    else:
+        return [path]
