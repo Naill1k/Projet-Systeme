@@ -1,14 +1,31 @@
-import os,sys,subprocess
+import os,sys
 
 
 def list_files(path):
-    result=subprocess.run(["ls","-l",path])
-    print(result.stdout)
+    if os.path.isdir(path) and path[-1] != '/':
+        return "skipping"
+    res=[]
+    for file in os.listdir(path):
+        if not os.path.isdir(path+file):
+            res.append(path+file)
+    return res
 
 
 def dir_list_files(path):
-    return None
-
+    res=[]
+    if path=='*':
+        for file in os.listdir():
+            res.append(file)
+        return res
+    if path[-1]=='*':
+        for file in os.listdir(path[:-1]):
+            res.append(file)
+        return res
+    if os.path.isdir(path) and path[-1] != '/':
+        return [path]
+    for file in os.listdir(path):
+        res.append(path+file)
+    return res
 
 
 
@@ -25,29 +42,28 @@ def rec_list_files(path):
             result.append(path)
             path += '/'
         for file in os.listdir(path):
-            full_path = path + file
-            if os.path.isdir(full_path):
-                result += rec_list_files(full_path)
+            if os.path.isdir(path+file):
+                result += rec_list_files(path+file)
             else:
-                result.append(full_path)
+                result.append(path+file)
     else:
         result.append(path)
     return result
 
 
+
+
+
 def rec_list_files2(path):
-    result = []
     if os.path.isdir(path):
+        res = []
         for file in os.listdir(path):
             if os.path.isdir(path+"/"+file+"/"):
-                result.append(rec_list_files2(path+"/"+file))
+                res.append(rec_list_files2(path+"/"+file))
             else:
-                result.append(file)
+                res.append(file)
         if path[-1] != '/':
-            return [os.path.basename(path), result]
-        return result
+            return [os.path.basename(path), res]
+        return res
     else:
         return [path]
-    
-stat=os.stat("reptest/SRC/SUS.txt")
-print(stat.st_mtime)
