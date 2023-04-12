@@ -1,11 +1,10 @@
-import os,sys
+import os,sys,subprocess
 
 
 def list_files(path):
-    print(subprocess(["ls","-l",path]))
+    result=subprocess.run(["ls","-l",path])
+    print(result.stdout)
 
-
-list_files("reptest/SRC")
 
 def dir_list_files(path):
     return None
@@ -28,7 +27,7 @@ def rec_list_files(path):
         for file in os.listdir(path):
             full_path = path + file
             if os.path.isdir(full_path):
-                result += list_files(full_path)
+                result += rec_list_files(full_path)
             else:
                 result.append(full_path)
     else:
@@ -41,7 +40,7 @@ def rec_list_files2(path):
     if os.path.isdir(path):
         for file in os.listdir(path):
             if os.path.isdir(path+"/"+file+"/"):
-                result.append(list_files2(path+"/"+file))
+                result.append(rec_list_files2(path+"/"+file))
             else:
                 result.append(file)
         if path[-1] != '/':
@@ -49,3 +48,6 @@ def rec_list_files2(path):
         return result
     else:
         return [path]
+    
+stat=os.stat("reptest/SRC/SUS.txt")
+print(stat.st_mtime)
