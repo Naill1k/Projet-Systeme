@@ -50,10 +50,6 @@ def rec_list_files(path):
         result.append(path)
     return result
 
-
-
-
-
 def rec_list_files2(path):
     if os.path.isdir(path):
         res = []
@@ -67,3 +63,16 @@ def rec_list_files2(path):
         return res
     else:
         return [path]
+    
+
+def simplifier(path,list):
+    L=[]
+    if path[-1] != '/':
+        n=len(path.split(os.sep))-1
+        for l in list:
+            L.append('/'.join(l.split(os.sep)[n:]))
+    else:
+        n=len(path.split(os.sep))-1
+        for l in list:
+            L.append('/'.join(l.split(os.sep)[n:]))
+    return L
