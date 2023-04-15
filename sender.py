@@ -1,4 +1,4 @@
-import filelist,os
+import os, filelist, message
 
 def statistics(list):
     S=[]
@@ -11,4 +11,4 @@ def statistics(list):
     return S
 
 
-print(statistics(filelist.rec_list_files("reptest/SRC")))
+message.log(statistics(filelist.rec_list_files("reptest/SRC")))

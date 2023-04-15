@@ -31,7 +31,7 @@ def comparator2(path_s,src,path_d,dest):
 
 print(list_s)
 print(list_d)    
-
+print()
 print(comparator("reptest/SRC/",list_s,"reptest/DEST/",list_d))
 print(comparator2("reptest/SRC/",list_s,"reptest/DEST/",list_d))
     

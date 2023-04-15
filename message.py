@@ -28,7 +28,7 @@ def receive(fd) :
     data += buff
     data = pickle.loads(data)
 
-    return data
+    return (None, data)
 
 
 

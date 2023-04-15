@@ -39,8 +39,9 @@ def rec_list_files(path):
     result = []
     if os.path.isdir(path):
         if path[-1] != '/':
-            result.append(path)
             path += '/'
+            result.append(path)
+            
         for file in os.listdir(path):
             if os.path.isdir(path+file):
                 result += rec_list_files(path+file)
