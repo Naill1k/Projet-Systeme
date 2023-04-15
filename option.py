@@ -36,9 +36,10 @@ parser.add_argument("files", nargs='+', help='Source ans destination file(s) or 
 
 args = parser.parse_args()
 
-if len(args.files) == 1 :
+if len(args.files) == 1 : # Mode --list-only
     src = args.files[:]
     dest = None
+    args.list_only = True
 
 else :
     src = args.files[:-1]
@@ -70,11 +71,18 @@ def split(file) :
     return user, host, file
 
 
+
 if len(src) == 1 :
     src_user, src_host, src = split(src[0])
+else :
+    src_user, src_host = None, None
+
 
 if dest is not None :
     dest_user, dest_host, dest = split(dest)
+else :
+    dest_user, dest_host = None, None
+
 
 if src_host is not None :
     mode = 'PULL'
@@ -83,7 +91,46 @@ elif dest_host is not None :
 else :
     mode = 'LOCAL'
 
-print('Source:', src_user, src_host, src)
-print('Destination:', dest_user, dest_host, dest)
+print(f'Source : User={src_user} | Host={src_host} | Source(s)={src}')
+print(f'Destination : User={dest_user} | Host={dest_host} | Source(s)={dest}')
 print('Connexion type :', connexion)
 print('Mode :', mode)
+
+
+# Construction of the dictionary containing the flags and options
+state = {
+    '-v': args.verbose,
+    '-q': args.quiet,
+    '-a': args.archive,
+    '-r': args.recursive,
+    '-u': args.update,
+    '-d': args.dirs,
+    '-H': args.hard_links,
+    '-p': args.perms,
+    '-t': args.times,
+    '--existing': args.existing,
+    '--ignore-existing': args.ignore_existing,
+    '--delete': args.delete,
+    '--force': args.force,
+    '--timeout': args.timeout,
+    '--blocking-io': args.blocking_io,
+    '-I': args.ignore_times,
+    '--size-only': args.size_only,
+    '--address': args.address,
+    '--port': args.port,
+    '--list-only': args.list_only,
+    '--daemon': args.daemon,
+    '--no-detach': args.no_detach,
+}
+
+
+# Display active flags and options
+print('='*64)
+for opt in state :
+    val = state[opt]
+    if type(val) == bool :
+        if val :
+            print('Flag :', opt)
+    else :
+        print(f'Option {opt} : {val}')
+print('='*64)
