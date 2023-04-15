@@ -1,15 +1,78 @@
-#os.listdir, os.path.join, os.path.isfile,
-#os.path.isdir, os.path.islink, os.path.basename, os.getcwd,
-#et os.chdir pour construire une liste de “noms de fichiers”,
-#et appellé os.stat pour récupérer toutes les informations
-#utiles sur ces fichiers, qui font pleinement partie de la liste de fichiers.
+import os,sys
 
-arg="reptest"
-import os
 
-print(os.listdir(arg))
-print(os.path.islink(arg))
-print(os.path.basename(arg))
-print(os.getcwd())
-print(os.chdir(arg))
-print(os.stat(os.getcwd()+"/fichier_normal"))
+def list_files(path):
+    if os.path.isdir(path) and path[-1] != '/':
+        return "skipping"
+    res=[]
+    for file in os.listdir(path):
+        if not os.path.isdir(path+file):
+            res.append(path+file)
+    return res
+
+
+def dir_list_files(path):
+    res=[]
+    if path=='*':
+        for file in os.listdir():
+            res.append(file)
+        return res
+    if path[-1]=='*':
+        for file in os.listdir(path[:-1]):
+            res.append(file)
+        return res
+    if os.path.isdir(path) and path[-1] != '/':
+        return [path]
+    for file in os.listdir(path):
+        res.append(path+file)
+    return res
+
+
+
+'''
+Make a list (recursive) of all files and repertories of a given path,starting at the current path.
+If the path (i.e. the argument) finishes with a '/', then not include the path in the list,
+else include it. 
+'''
+
+def rec_list_files(path):
+    result = []
+    if os.path.isdir(path):
+        if path[-1] != '/':
+            result.append(path)
+            path += '/'
+        for file in os.listdir(path):
+            if os.path.isdir(path+file):
+                result += rec_list_files(path+file)
+            else:
+                result.append(path+file)
+    else:
+        result.append(path)
+    return result
+
+def rec_list_files2(path):
+    if os.path.isdir(path):
+        res = []
+        for file in os.listdir(path):
+            if os.path.isdir(path+"/"+file+"/"):
+                res.append(rec_list_files2(path+"/"+file))
+            else:
+                res.append(file)
+        if path[-1] != '/':
+            return [os.path.basename(path), res]
+        return res
+    else:
+        return [path]
+    
+
+def simplifier(path,list):
+    L=[]
+    if path[-1] != '/':
+        n=len(path.split(os.sep))-1
+        for l in list:
+            L.append('/'.join(l.split(os.sep)[n:]))
+    else:
+        n=len(path.split(os.sep))-1
+        for l in list:
+            L.append('/'.join(l.split(os.sep)[n:]))
+    return L
