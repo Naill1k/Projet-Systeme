@@ -1,4 +1,4 @@
-import argparse
+import argparse, message
 
 parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
@@ -91,10 +91,10 @@ elif dest_host is not None :
 else :
     mode = 'LOCAL'
 
-print(f'Source : User={src_user} | Host={src_host} | Source(s)={src}')
-print(f'Destination : User={dest_user} | Host={dest_host} | Source(s)={dest}')
-print('Connexion type :', connexion)
-print('Mode :', mode)
+message.log(f'Source : User={src_user} | Host={src_host} | Source(s)={src}', 2)
+message.log(f'Destination : User={dest_user} | Host={dest_host} | Source(s)={dest}', 2)
+message.log(f'Connexion type : {connexion}', 2)
+message.log(f'Mode : {mode}', 2)
 
 
 # Construction of the dictionary containing the flags and options
@@ -125,12 +125,12 @@ state = {
 
 
 # Display active flags and options
-print('='*64)
+message.log('='*64, 2)
 for opt in state :
     val = state[opt]
     if type(val) == bool :
         if val :
-            print('Flag :', opt)
+            message.log(f'Flag :{opt}', 2)
     else :
-        print(f'Option {opt} : {val}')
-print('='*64)
+        message.log(f'Option {opt} : {val}', 2)
+message.log('='*64, 2)
