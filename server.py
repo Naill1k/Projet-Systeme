@@ -12,9 +12,7 @@ def server() :
     message.log(f'[SERVER] Destination file list :{dest_files}', 1)
 
     # Determines the files missing from the destination
-    list_src = filelist.simplifier(option.src,src_files)
-    list_dest = filelist.simplifier(option.dest,dest_files)
-    missing_files = generator.comparator(option.src, list_src, option.dest, list_dest)
+    missing_files = generator.comparator(option.src, src_files, option.dest, dest_files)
     message.log(f'[SERVER] Files to copy : {missing_files}', 2)
 
     os.chdir(option.dest)
