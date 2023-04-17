@@ -18,7 +18,10 @@ def dir_list_files(path):
     if os.path.isdir(path) and path[-1] != '/':
         return [path]
     for file in os.listdir(path):
-        res.append(file)
+        if os.path.isdir(path+file):
+            res.append(file+'/')
+        else:
+            res.append(file)
     return res
 
 
@@ -28,10 +31,9 @@ def rec_list_files(path):
     if os.path.isdir(path):
         path2=""
         if path[-1] != '/':
-            path2=path.split('/')[-1]
-            res.append(path2)
+            path2=path.split('/')[-1]+'/'
             path += '/'
-            path2 += '/'
+            res.append(path2) 
         for file in os.listdir(path):
             if os.path.isdir(path+file):
                 for r in rec_list_files(path+file):
@@ -41,3 +43,5 @@ def rec_list_files(path):
     else:
         res.append(path.split('/')[-1])
     return res
+
+print(dir_list_files("reptest/SRC/"))
