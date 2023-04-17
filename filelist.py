@@ -2,7 +2,7 @@ import os,sys
 
 
 
-def list_files(path):
+def list_files(path) :
     '''
     make a list of all files without repertories in the given path
     executed by default
@@ -19,7 +19,7 @@ def list_files(path):
 
 
 
-def dir_list_files(path):
+def dir_list_files(path) :
     '''
     make a list of all files and repertories in the given path
     useful for the option -d
@@ -38,14 +38,14 @@ def dir_list_files(path):
 
 
 
-def rec_list_files(path):
+def rec_list_files(path) :
     '''
     make a list of all files and repertories in the given path
     recurse into directories
     usefull for the option -r
     '''
     res = []
-    if os.path.isdir(path):
+    if os.path.isdir(path) :
         path2 = ''
         if path[-1] != '/':
             path2 = path.split('/')[-1] + '/'
@@ -54,12 +54,12 @@ def rec_list_files(path):
 
         for file in os.listdir(path):
             if os.path.isdir(path+file):
-                for r in rec_list_files(path+file):
+                for r in rec_list_files(path+file) :
                     res.append(path2+r)
 
             else:
                 res.append(path2+file)
     else:
         res.append(path.split('/')[-1])
-        
+
     return res
