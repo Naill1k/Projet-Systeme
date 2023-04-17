@@ -25,7 +25,7 @@ def dir_list_files(path) :
     useful for the option -d
     '''
     res=[]
-    if os.path.isdir(path) and path[-1] != '/':
+    if os.path.isdir(path) and path[-1] != '/' :
         return [path]
     
     for file in os.listdir(path):
@@ -47,13 +47,13 @@ def rec_list_files(path) :
     res = []
     if os.path.isdir(path) :
         path2 = ''
-        if path[-1] != '/':
+        if path[-1] != '/' :
             path2 = path.split('/')[-1] + '/'
             path += '/'
             res.append(path2) 
 
-        for file in os.listdir(path):
-            if os.path.isdir(path+file):
+        for file in os.listdir(path) :
+            if os.path.isdir(path+file) :
                 for r in rec_list_files(path+file) :
                     res.append(path2+r)
 
