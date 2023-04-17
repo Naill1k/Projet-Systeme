@@ -3,6 +3,10 @@ import os,sys
 
 
 def list_files(path):
+    '''
+    make a list of all files without repertories in the given path
+    executed by default
+    '''
     if os.path.isdir(path) and path[-1] != '/':
         return "skipping "+path.split('/')[-1]
     
@@ -16,6 +20,10 @@ def list_files(path):
 
 
 def dir_list_files(path):
+    '''
+    make a list of all files and repertories in the given path
+    useful for the option -d
+    '''
     res=[]
     if os.path.isdir(path) and path[-1] != '/':
         return [path]
@@ -31,6 +39,11 @@ def dir_list_files(path):
 
 
 def rec_list_files(path):
+    '''
+    make a list of all files and repertories in the given path
+    recurse into directories
+    usefull for the option -r
+    '''
     res = []
     if os.path.isdir(path):
         path2 = ''
