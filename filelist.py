@@ -43,5 +43,3 @@ def rec_list_files(path):
     else:
         res.append(path.split('/')[-1])
     return res
-
-print(dir_list_files("reptest/SRC/"))
