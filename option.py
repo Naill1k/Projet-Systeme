@@ -24,6 +24,7 @@ parser.add_argument('--size-only', action='store_true', help='skip files that ma
 parser.add_argument('--address', help='bind address for outgoing socket to daemon')
 parser.add_argument('--port', type=int, help='specify double-colon alternate port number')
 parser.add_argument('--list-only', action='store_true', help='list the files instead of copying them')
+parser.add_argument('--server', action='store_true', help='Used in ssh communication to start server on remote host')
 
 daemon_group = parser.add_argument_group('Daemon options')
 daemon_group.add_argument('--daemon', action='store_true', help="run as an mrsync daemon")
@@ -46,6 +47,7 @@ else :
     dest = args.files[-1]
 
 connexion = 'local'
+
 
 def split(file) :
     '''
@@ -119,6 +121,7 @@ state = {
     '--address': args.address,
     '--port': args.port,
     '--list-only': args.list_only,
+    '--server': args.server,
     '--daemon': args.daemon,
     '--no-detach': args.no_detach,
 }
