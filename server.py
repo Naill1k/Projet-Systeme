@@ -15,4 +15,4 @@ def server() :
     message.log(f'[SERVER] Files to copy : {requiered_files}', 2)
 
     os.chdir(option.dest)
-    receiver.receiver(requiered_files)
+    receiver.receiver(requiered_files, dest_files)

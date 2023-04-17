@@ -1,13 +1,19 @@
-import os, message
+import os, message, option
 
-def receiver(requiered_files) :
+def receiver(requiered_files,dest_files) :
     message.log('[SERVER] Asking required files', 1)
     for file in requiered_files :
+        if (option.args.existing) and (not file in dest_files) :
+                continue
+        
         if file[-1] == '/' :  # If it's a directory, we just create it and go to the next file
             message.log(f"[SERVER] Creating directory '{file}'", 2)
             os.mkdir(file)
         
         else :
+            if (option.args.ignore_existing) and (file in dest_files) :
+                continue
+
             message.log(f"[SERVER] Asking for '{file}'", 2)
             message.send(1, 'Query', file)   # Asks the client for the specified file
             (tag, data) = message.receive(0) # Data contains the content of the file requested

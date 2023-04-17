@@ -1,4 +1,4 @@
-import os,filelist
+import os, option
 
 def comparator(path_s,src,path_d,dest) :
     '''
@@ -10,8 +10,9 @@ def comparator(path_s,src,path_d,dest) :
         path_s = '/'.join(path_s.split('/')[:-1]) + '/'
 
     for file in src:
-        if (file in dest) and (os.stat(path_s+file).st_mtime > os.stat(path_d+file).st_mtime) :
-            C.append(file)
+        if (file in dest) :
+            if (not option.args.update) and (os.stat(path_s+file).st_mtime > os.stat(path_d+file).st_mtime) :
+                C.append(file)
 
         elif file not in dest:
             C.append(file)
