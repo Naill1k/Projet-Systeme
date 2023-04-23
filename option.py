@@ -46,7 +46,7 @@ else :
     src = args.files[:-1]
     dest = args.files[-1]
 
-connexion = 'local'
+connection = 'local'
 
 
 def split(file) :
@@ -54,21 +54,21 @@ def split(file) :
     Determines the eventual name of the host and the user if specified (if not their value is None) and the destination
     Returns : (user, host, dest) where user and host may be None
     '''
-    global connexion, mode
+    global connection, mode
     user, host = None, None
 
     if '@' in file : # User name specified
         user, file = file.split('@')
 
-    if '::' in file : # daemon connexion
+    if '::' in file : # daemon connection
         host, file = file.split('::')
-        if connexion != 'local' : raise SyntaxError('mrsync cannon copy files between two remote hosts')
-        connexion = 'daemon'
+        if connection != 'local' : raise SyntaxError('mrsync cannon copy files between two remote hosts')
+        connection = 'daemon'
 
-    elif ':' in file : # ssh connexion
+    elif ':' in file : # ssh connection
         host, file = file.split(':')
-        if connexion != 'local' : raise SyntaxError('mrsync cannon copy files between two remote hosts')
-        connexion = 'ssh'
+        if connection != 'local' : raise SyntaxError('mrsync cannon copy files between two remote hosts')
+        connection = 'ssh'
 
     return user, host, file
 
@@ -88,15 +88,17 @@ else :
 
 if src_host is not None :
     mode = 'PULL'
+    host = src_host
+
 elif dest_host is not None :
     mode = 'PUSH'
+    host = dest_host
+
 else :
     mode = 'LOCAL'
+    host = None
 
-message.log(f'Source : User={src_user} | Host={src_host} | Source(s)={src}', 2)
-message.log(f'Destination : User={dest_user} | Host={dest_host} | Source(s)={dest}', 2)
-message.log(f'Connexion type : {connexion}', 2)
-message.log(f'Mode : {mode}', 2)
+
 
 
 # Construction of the dictionary containing the flags and options
@@ -111,29 +113,35 @@ state = {
     '-p': args.perms,
     '-t': args.times,
     '--existing': args.existing,
-    '--ignore-existing': args.ignore_existing,
+    '--ignore_existing': args.ignore_existing,
     '--delete': args.delete,
     '--force': args.force,
     '--timeout': args.timeout,
-    '--blocking-io': args.blocking_io,
+    '--blocking_io': args.blocking_io,
     '-I': args.ignore_times,
-    '--size-only': args.size_only,
+    '--size_only': args.size_only,
     '--address': args.address,
     '--port': args.port,
-    '--list-only': args.list_only,
+    '--list_only': args.list_only,
     '--server': args.server,
     '--daemon': args.daemon,
-    '--no-detach': args.no_detach,
+    '--no_detach': args.no_detach,
+
+    'mode': mode,
+    'connection': connection,
+    'host': host,
+    'src': src,
+    'dest': dest
 }
 
 
 # Display active flags and options
-message.log('='*64, 2)
 for opt in state :
     val = state[opt]
     if type(val) == bool :
         if val :
-            message.log(f'Flag :{opt}', 2)
+            message.log(f"Flag : '{opt}'", state['-v'], 2)
     else :
-        message.log(f'Option {opt} : {val}', 2)
-message.log('='*64, 2)
+        message.log(f"'{opt}' : {val}", state['-v'], 2)
+        
+message.log('='*64, state['-v'], 2)

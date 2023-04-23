@@ -1,6 +1,6 @@
-import os, option
+import os
 
-def comparator(path_s,src,path_d,dest) :
+def comparator(path_s,src,path_d,dest, STATE) :
     '''
     compare two lists with different path
     and make a list of missing or old files of source path
@@ -11,7 +11,7 @@ def comparator(path_s,src,path_d,dest) :
 
     for file in src:
         if (file in dest) :
-            if (not option.args.update) and (os.stat(path_s+file).st_mtime > os.stat(path_d+file).st_mtime) :
+            if (not STATE['-u']) and False :#(os.stat(path_s+file).st_mtime > os.stat(path_d+file).st_mtime) :
                 C.append(file)
 
         elif file not in dest:
