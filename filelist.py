@@ -1,4 +1,4 @@
-import os,sys
+import os,sys, message
 
 
 
@@ -45,6 +45,11 @@ def rec_list_files(path) :
     usefull for the option -r
     '''
     res = []
+    if type(path) == list :
+        for file in path :
+            res += rec_list_files(file)
+        return res
+    
     if os.path.isdir(path) :
         path2 = ''
         if path[-1] != '/' :

@@ -1,4 +1,4 @@
-import os, message, generator, filelist
+import os, message, filelist, generator
 
 def receiver(STATE) :
     # Calculates the list of files in the destination
@@ -26,7 +26,7 @@ def receiver(STATE) :
     message.log('[RECEIVER] Asking required files', STATE['-v'], 1)
     for file in requiered_files :
         if (STATE['--existing']) and (not file in dest_files) :
-                continue
+            continue
         
         if file[-1] == '/' :  # If it's a directory, we just create it and go to the next file
             message.log(f"[RECEIVER] Creating directory '{file}'", STATE['-v'], 2)

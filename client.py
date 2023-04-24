@@ -1,4 +1,4 @@
-import sender, receiver, message
+import message, sender, receiver
 
 def client(STATE) :
     # Sends STATE dictionnary to server
