@@ -20,13 +20,11 @@ serversocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 serversocket.bind((HOST,PORT))
 serversocket.listen()
 print("server is listening on port:",PORT)
-nb_open = 0
 socketlist=[serversocket]
-first = True
 run = True
 
 
-while (first or nb_open > 0) and run:
+while run:
 
     signal.signal(signal.SIGTERM,capture)
 
@@ -50,7 +48,7 @@ while (first or nb_open > 0) and run:
                 nb_open -=1
 
             else:
-                os.execv("python3",["mrsync.py"])
+                TO DO
 
 for c in socketlist:
     c.close
