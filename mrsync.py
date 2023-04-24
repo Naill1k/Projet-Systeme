@@ -58,7 +58,7 @@ else :  # Subprocess
 
     if STATE['connection'] == 'ssh' :
         message.log('Opening ssh connection', STATE['-v'], 1)
-        os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', '~/Syst2/Projet-Systeme/mrsync.py', '--server', STATE['src'], STATE['dest']])
+        os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', 'Syst2/Projet-Systeme/mrsync.py', '--server', STATE['src'], STATE['dest']])
 
 
     if STATE['connection'] != 'daemon' :
