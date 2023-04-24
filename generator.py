@@ -1,5 +1,7 @@
 import os
 
+#PermissionError
+
 def comparator(path_s,src,path_d,dest, STATE) :
     '''
     compare two lists with different path

@@ -20,7 +20,6 @@ serversocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 serversocket.bind((HOST,PORT))
 serversocket.listen()
 print("server is listening on port:",PORT)
-socketlist=[serversocket]
 run = True
 
 
@@ -28,7 +27,6 @@ while run:
 
     signal.signal(signal.SIGTERM,capture)
 
-    first=False
     (activesockets,_,_) = select.select(socketlist,[],[])
 
     for s in activesockets:
@@ -37,7 +35,6 @@ while run:
             clientsocket,(addr,port) = serversocket.accept()
             socketlist.append(clientsocket)
             print("connection from the addr",addr)
-            nb_open += 1
 
         else:
             msg = s.recv(MAXBYTES)
@@ -45,7 +42,6 @@ while run:
             if len(msg) == 0:
                 s.close()
                 socketlist.remove(s)
-                nb_open -=1
 
             else:
                 TO DO
