@@ -1,12 +1,13 @@
 import os,sys, message
 
 
-#couple nom, date
 def list_files(path) :
+
     '''
     make a list of all files without repertories in the given path
     executed by default
     '''
+
     if os.path.isdir(path) and path[-1] != '/':
         return []
     
@@ -21,11 +22,14 @@ def list_files(path) :
 
 
 def dir_list_files(path) :
+
     '''
     make a list of all files and repertories in the given path
     useful for the option -d
     '''
+
     res=[]
+
     if os.path.isdir(path) and path[-1] != '/' :
         return [path]
     
@@ -40,16 +44,15 @@ def dir_list_files(path) :
 
 
 def rec_list_files(path) :
+
     '''
     make a list of all files and repertories in the given path
     recurse into directories
-    usefull for the option -r
+    useful for the option -r
     '''
+
     res = []
-    if type(path) == list :
-        for file in path :
-            res += rec_list_files(file)
-        return res
+
     if os.path.isdir(path) :
         path2 = ''
         if path[-1] != '/' :
@@ -60,8 +63,8 @@ def rec_list_files(path) :
         try:
             for file in os.listdir(path) :
                 if os.path.isdir(path+file) :
-                    for r in rec_list_files(path+file) :
-                        res.append((path2+r,os.stat(path+r).st_mtime))
+                    for r in rec_list_files((path+file)) :
+                        res.append((path2+r[0],os.stat(path+r[0]).st_mtime))
 
                 else:
                     res.append((path2+file,os.stat(path+file).st_mtime))
@@ -69,9 +72,6 @@ def rec_list_files(path) :
             pass
 
     else:
-        res.append(path.split('/')[-1])
+        res.append((path.split('/')[-1],os.stat(path).st_mtime))
 
     return res
-
-
-print(rec_list_files("reptest/SRC/"))
