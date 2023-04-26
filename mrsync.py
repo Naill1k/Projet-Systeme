@@ -4,9 +4,6 @@ import os, option, filelist, message
 import server
 import client
 
-fd_log = os.open('log', os.O_WRONLY | os.O_CREAT)
-if fd_log != 3 :
-    exit(4)
 
 STATE = option.state  # Dictionnary containing all the requiered information (flags, files, ...)
 
@@ -17,14 +14,17 @@ if STATE['--server'] :
 
 
 if STATE['--list_only'] :
-    if STATE['-r'] :
-        src_files = filelist.rec_list_files(STATE['src'])
-    elif STATE['-d'] :
-        src_files = filelist.dir_list_files(STATE['src'])
-    else :
-        src_files = filelist.list_files(STATE['src'])
+    print('List of files :')
+    for path in STATE['src'] :
+        print()
+        if STATE['-r'] :
+            os.system('ls --recursive -l ' + path)
 
-    message.log(f'The source files are : {src_files}', STATE['-v'], 1)
+        else :
+            os.system('ls -l ' + path)
+
+    exit(0)
+    
 
 
 
@@ -58,10 +58,10 @@ else :  # Subprocess
 
     if STATE['connection'] == 'ssh' :
         message.log('Opening ssh connection', STATE['-v'], 1)
-        os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', 'Syst2/Projet-Systeme/mrsync.py', '--server', STATE['src'], STATE['dest']])
+        path_mrsync = 'Syst2/Projet-Systeme/mrsync.py'  # The path for the mrsync.py file on the remote host
+        os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', path_mrsync, '--server', STATE['dest']])
 
 
     if STATE['connection'] != 'daemon' :
         server.server()
 
-os.close(fd_log)

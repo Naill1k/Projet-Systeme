@@ -7,7 +7,6 @@ def server() :
     message.send('ACK', None)
     message.receive()  # ACK from client
     message.log(f'[SERVER] STATE dictionnary : {STATE}', STATE['-v'], 2)
-    message.log(f'[SERVER] CWD : {os.getcwd()}',2 ,2 )
 
         
     if STATE['mode'] == 'PULL' :

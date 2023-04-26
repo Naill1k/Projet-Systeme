@@ -17,7 +17,7 @@ parser.add_argument('--existing', action='store_true', help='skip creating new f
 parser.add_argument('--ignore-existing', action='store_true', help='skip updating files that exist on receiver')
 parser.add_argument('--delete', action='store_true', help='delete extraneous files from dest dirs')
 parser.add_argument('--force', action='store_true', help='force deletion of dirs even if not empty')
-parser.add_argument('--timeout', type=int, help='set I/O timeout in seconds')
+parser.add_argument('--timeout', type=int, default=0, help='set I/O timeout in seconds')
 parser.add_argument('--blocking-io', action='store_true', help='use blocking I/O for the remote shell')
 parser.add_argument('-I', '--ignore-times', action='store_true', help="don't skip files that match size and time")
 parser.add_argument('--size-only', action='store_true', help='skip files that match in size')
@@ -49,7 +49,7 @@ else :
 connection = 'local'
 
 
-def split(file) :
+def decompose(file) :
     '''
     Determines the eventual name of the host and the user if specified (if not their value is None) and the destination
     Returns : (user, host, dest) where user and host may be None
@@ -73,17 +73,19 @@ def split(file) :
     return user, host, file
 
 
-
+# Determination of user and host names (if specified) for the source and the destination
 if len(src) == 1 :
-    src_user, src_host, src = split(src[0])
+    src_user, src_host, src = decompose(src[0])
+    src = [src]  # The source files is always a list
 else :
     src_user, src_host = None, None
 
 
 if dest is not None :
-    dest_user, dest_host, dest = split(dest)
+    dest_user, dest_host, dest = decompose(dest)
 else :
     dest_user, dest_host = None, None
+
 
 
 if src_host is not None :

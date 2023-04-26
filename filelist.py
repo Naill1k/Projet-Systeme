@@ -31,7 +31,7 @@ def dir_list_files(path) :
     res=[]
 
     if os.path.isdir(path) and path[-1] != '/' :
-        return [path]
+        return [path+'/']
     
     for file in os.listdir(path):
         if os.path.isdir(path+file):
