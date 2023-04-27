@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, option, filelist, message, demon2
+import os, option, message, demon2
 
 import server
 import client

@@ -37,33 +37,23 @@ def demonizer(STATE):
                     socketlist.append(clientsocket)
                     
                 else :
-                    print('Executing server in CWD :', os.getcwd(), os.listdir('.'), file=sys.stderr)
+                    print('Executing server in CWD :', os.getcwd(), file=sys.stderr)
                     os.dup2(s.fileno(), 0)
                     os.dup2(s.fileno(), 1)
 
                     server.server()
                     exit(0)
 
-                    msg = os.read(0, MAXBYTES)
-                    if len(msg) == 0 :
-                        print("NULL message. Closing connection...", file=sys.stderr)
-                        s.close()
-                        # Remove the closed connection from potential active sockets
-                        socketlist.remove(s)
-                    else :
-                        print(msg.decode(), file=sys.stderr)
-                        os.write(1, msg)
-
-                    #server.server()
-
                     # pidf = os.fork()
                     # list_pid_fils.append(pidf)
                     # if not pidf:
 
-                    #     os.dup2(s.fileno(),0)
-                    #     os.dup2(s.fileno(),1)
+                    #     os.dup2(s.fileno(), 0)
+                    #     os.dup2(s.fileno(), 1)
 
                     #     server.server()
+                    #     exit(0)
+
 
 
         # for pid in list_pid_fils:
@@ -75,4 +65,3 @@ def demonizer(STATE):
         serversocket.close()
         print("Au revoir")
         sys.exit(0)
-
