@@ -1,1 +1,9 @@
 Terminating on signal 15
+Traceback (most recent call last):
+  File "/home/bob/Syst2/Projet-Systeme/mrsync.py", line 2, in <module>
+    import os, option, filelist, message, demon2
+  File "/home/bob/Syst2/Projet-Systeme/demon2.py", line 62, in <module>
+    demonizer(STATE)
+  File "/home/bob/Syst2/Projet-Systeme/demon2.py", line 35, in demonizer
+    (activesockets,_,_) = select.select(socketlist,[],[])
+KeyboardInterrupt

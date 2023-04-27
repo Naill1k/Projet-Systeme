@@ -45,6 +45,9 @@ def demonizer(STATE):
                     list_pid_fils.append(pidf)
                     if not pidf:
 
+                        os.dup2(s.fileno(),0)
+                        os.dup2(s.fileno(),1)
+
                         server.server()
 
 
