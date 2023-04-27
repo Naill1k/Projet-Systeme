@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, option, filelist, message
+import os, option, filelist, message#, demon
 
 import server
 import client
@@ -24,8 +24,10 @@ if STATE['--list_only'] :
             os.system('ls -l ' + path)
 
     exit(0)
-    
 
+if STATE['--daemon']:
+    #demon.demonizer(STATE)
+    exit(0)
 
 
 fdr1, fdw1 = os.pipe()  # Pipe client -> server
