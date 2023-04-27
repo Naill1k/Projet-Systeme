@@ -3,7 +3,7 @@ import os, socket, sys, signal, daemon, client, option
 
 def demonizer(STATE):
 
-    with daemon.DaemonContext(stdout=open('démon.log','a+'),stderr=open('mrsync.err','a+'),detach_process=STATE['--no_detach']):
+    with daemon.DaemonContext(stdout=open('démon.log','a+'),stderr=open('mrsync.err','a+'),detach_process=not(STATE['--no_detach'])):
 
         def capture(sig,frame):
 
