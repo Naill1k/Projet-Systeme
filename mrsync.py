@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, option, filelist, message, demon
+import os, option, filelist, message#, demon
 
 import server
 import client
@@ -26,8 +26,8 @@ if STATE['--list_only'] :
     exit(0)
 
 if STATE['--daemon']:
-    demon.demonizer(STATE)
-    exit()
+    #demon.demonizer(STATE)
+    exit(0)
 
 
 fdr1, fdw1 = os.pipe()  # Pipe client -> server
@@ -62,3 +62,8 @@ else :  # Subprocess
         message.log('Opening ssh connection', STATE['-v'], 1)
         path_mrsync = 'Syst2/Projet-Systeme/mrsync.py'  # The path for the mrsync.py file on the remote host
         os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', path_mrsync, '--server', STATE['dest']])
+
+
+    if STATE['connection'] != 'daemon' :
+        server.server()
+
