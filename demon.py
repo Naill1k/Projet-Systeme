@@ -1,4 +1,4 @@
-import os, socket, sys, signal, daemon, client
+import os, socket, sys, signal, daemon, client, option
 
 
 def demonizer(STATE):
@@ -56,3 +56,7 @@ def demonizer(STATE):
         serversocket.close()
         print("Au revoir")
         sys.exit(0)
+
+
+STATE = option.state
+demonizer(STATE)

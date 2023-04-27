@@ -1,4 +1,4 @@
-import os, socket, select, sys, signal, daemon, client, server
+import os, socket, select, sys, signal, daemon, client, server, option
 
 
 def demonizer(STATE):
@@ -47,14 +47,6 @@ def demonizer(STATE):
 
                         server.server()
 
-                        os.dup2(s.fileno(),0)
-                        os.dup2(s.fileno(),1)
-
-                        client.client(STATE)
-
-                        sys.exit(0)
-
-
 
         for pid in list_pid_fils:
             os.kill(pid, signal.SIGTERM)
@@ -65,3 +57,6 @@ def demonizer(STATE):
         serversocket.close()
         print("Au revoir")
         sys.exit(0)
+
+STATE = option.state
+demonizer(STATE)
