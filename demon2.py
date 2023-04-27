@@ -1,4 +1,4 @@
-import os, socket, sys, signal, daemon, client
+import os, socket, select, sys, signal, daemon, client, server
 
 
 def demonizer(STATE):
@@ -24,34 +24,43 @@ def demonizer(STATE):
         serversocket.bind((HOST,PORT))
         serversocket.listen()
         print("server is listening on port:",PORT)
+        socketlist = [serversocket]
         run = True
-
 
 
         while run:
 
             signal.signal(signal.SIGTERM,capture)
 
-            conn,addr = serversocket.accept()
+            (activesockets,_,_) = select.select(socketlist,[],[])
 
-            pidf = os.fork()
-            list_pid_fils.append(pidf)
-            if not pidf:
+            for s in activesockets:
 
-                os.dup2(conn.fileno(),0)
-                os.dup2(conn.fileno(),1)
+                if s == serversocket:
+                    clientsocket, (addr,port) = serversocket.accept()
+                    socketlist.append(clientsocket)
 
-                client.client(STATE)
+                else:
+                    pidf = os.fork()
+                    list_pid_fils.append(pidf)
+                    if not pidf:
 
-                conn.close()
-                sys.exit(0)
+                        server.server()
 
-            else:
-                conn.close()
+                        os.dup2(s.fileno(),0)
+                        os.dup2(s.fileno(),1)
+
+                        client.client(STATE)
+
+                        sys.exit(0)
+
 
 
         for pid in list_pid_fils:
             os.kill(pid, signal.SIGTERM)
+        
+        for conn in socketlist:
+            conn.close()
 
         serversocket.close()
         print("Au revoir")
