@@ -1,35 +1,26 @@
 import os
 
 
-def comparator(path_s,src,path_d,dest, STATE) :
+def comparator(src, dest, STATE) :
 
     '''
     compare two lists with different path
     and make a list of missing or old files of source path
     '''
 
-    if path_s[-1] != '/':
-        path_s = '/'.join(path_s.split('/')[:-1]) + '/'
+    dest_files = [file[0] for file in dest]
+    requiered_files = []
 
-    D = []
-    C = []
-
-    for dest_files in dest:
-        D.append(dest_files[0])
-
-    for src_files in src:
-
-        if src_files[0] in D:
+    for (file, mod_time) in src :
+        if (not STATE['-I']) and (file in dest_files) :
             
-            if (not STATE['-u']):
+            if (not STATE['-u']) :
+                index_dest = dest_files.index(file)
 
-                index_dest = D.index(src_files[0])
+                if mod_time > dest[index_dest][1] :
+                    requiered_files.append(file)
 
-                if src_files[1] > dest[index_dest][1]:
-                    C.append(src_files[0])
+        else :
+            requiered_files.append(file)
 
-        else:
-            
-            C.append(src_files[0])
-
-    return C
+    return requiered_files

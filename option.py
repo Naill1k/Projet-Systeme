@@ -37,6 +37,10 @@ parser.add_argument("files", nargs='+', help='Source ans destination file(s) or 
 
 args = parser.parse_args()
 
+if args.quiet :
+    args.verbose = -1
+    
+
 if len(args.files) == 1 : # Mode --list-only
     src = args.files[:]
     dest = None

@@ -2,7 +2,6 @@ import message, sender, receiver, os
 
 def server() :
     # Asks the client for the STATE dictionnary
-    message.log('[SERVER] Ready to receive STATE dictionnary', 2, 2)
     (tag, STATE) = message.receive()
     message.send('ACK', None)
     message.receive()  # ACK from client
