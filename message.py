@@ -11,7 +11,7 @@ def send(tag, v) :
     n = os.write(1, binaries)
 
     if n != len(binaries) :
-        log("Message couldn't be send entirely", 1)
+        log("Message couldn't be send entirely", 0, 0)
 
 
 def receive() :
@@ -25,9 +25,7 @@ def receive() :
         data += buff
         buff = os.read(0, MAX_BYTES)
 
-    data += buff
-    if len(data) == 0 :
-        log('Error reading input file')
+    data += buff        
     
     try :
         data = pickle.loads(data)
@@ -36,14 +34,15 @@ def receive() :
         #     receive()
 
     except :
-        log(data)
+        log(f'Error reading input data : {data}', 0, 0)
+        exit(1)
         data = pickle.loads(data) # type: ignore
 
     return (None, data)
 
 
 
-def log(msg, verbosity=0, priority=0) :
+def log(msg, verbosity, priority) :
     '''
     Displays the information 'msg' if the priority is at least the level of verbosity specified
     '''

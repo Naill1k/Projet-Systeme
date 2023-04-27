@@ -1,20 +1,26 @@
 import os,sys, message
 
 
-def list_files(path) :
+def list_files(path, v) :
 
     '''
     make a list of all files without repertories in the given path
     executed by default
     '''
 
-    if os.path.isdir(path) and path[-1] != '/':
-        return []
+    if not os.path.isdir(path) :  # It is a regular file
+        return [(path.split('/')[-1], os.stat(path).st_mtime)]
+    
+    else :
+        if path[-1] != '/':
+            return []
     
     res=[]
     for file in os.listdir(path):
         if not os.path.isdir(path+file):
             res.append((file,os.stat(path+file).st_mtime))
+        else :
+            message.log(f"Skipping directory '{path+file}'", v, 0)
 
     return res
 
@@ -30,14 +36,18 @@ def dir_list_files(path) :
 
     res=[]
 
-    if os.path.isdir(path) and path[-1] != '/' :
-        return [path+'/']
+    if not os.path.isdir(path) :  # It is a regular file
+        return [(path.split('/')[-1], os.stat(path).st_mtime)]
+    
+    else :
+        if path[-1] != '/' :
+            return [(path.split('/')[-1]+'/', os.stat(path).st_mtime)]
     
     for file in os.listdir(path):
         if os.path.isdir(path+file):
-            res.append((file+'/',os.stat(path+file).st_mtime))
+            res.append((file+'/', os.stat(path+file).st_mtime))
         else:
-            res.append((file,os.stat(path+file).st_mtime))
+            res.append((file, os.stat(path+file).st_mtime))
 
     return res
 
@@ -58,20 +68,20 @@ def rec_list_files(path) :
         if path[-1] != '/' :
             path2 = path.split('/')[-1] + '/'
             path += '/'
-            res.append((path2,os.stat(path).st_mtime)) 
+            res.append((path2, os.stat(path).st_mtime)) 
 
         try:
             for file in os.listdir(path) :
                 if os.path.isdir(path+file) :
                     for r in rec_list_files((path+file)) :
-                        res.append((path2+r[0],os.stat(path+r[0]).st_mtime))
+                        res.append((path2+r[0], os.stat(path+r[0]).st_mtime))
 
                 else:
-                    res.append((path2+file,os.stat(path+file).st_mtime))
+                    res.append((path2+file, os.stat(path+file).st_mtime))
         except PermissionError:
             pass
 
     else:
-        res.append((path.split('/')[-1],os.stat(path).st_mtime))
+        res.append((path.split('/')[-1], os.stat(path).st_mtime))
 
     return res
