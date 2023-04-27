@@ -8,7 +8,7 @@ import client
 STATE = option.state  # Dictionnary containing all the requiered information (flags, files, ...)
 
 if STATE['--server'] :
-    message.log(f'Starting server because of --server option, CWD : {os.getcwd()}', STATE['-v'], 2)
+    message.log('Starting server', STATE['-v'], 2)
     server.server()
     exit()
 
@@ -25,8 +25,14 @@ if STATE['--list_only'] :
 
     exit(0)
 
-if STATE['--daemon']:
+if STATE['--daemon'] :
+    message.log('Starting deamon', STATE['-v'], 2)
     demon2.demonizer(STATE)
+    exit(0)
+
+if STATE['connection'] == 'daemon' :
+    client.client(STATE)
+    exit(0)
 
 
 fdr1, fdw1 = os.pipe()  # Pipe client -> server

@@ -21,8 +21,8 @@ parser.add_argument('--timeout', type=int, default=0, help='set I/O timeout in s
 parser.add_argument('--blocking-io', action='store_true', help='use blocking I/O for the remote shell')
 parser.add_argument('-I', '--ignore-times', action='store_true', help="don't skip files that match size and time")
 parser.add_argument('--size-only', action='store_true', help='skip files that match in size')
-parser.add_argument('--address', help='bind address for outgoing socket to daemon')
-parser.add_argument('--port', type=int, help='specify double-colon alternate port number')
+parser.add_argument('--address', default='localhost', help='bind address for outgoing socket to daemon')
+parser.add_argument('--port', type=int, default=10873, help='specify double-colon alternate port number')
 parser.add_argument('--list-only', action='store_true', help='list the files instead of copying them')
 parser.add_argument('--server', action='store_true', help='Used in ssh communication to start server on remote host')
 
@@ -33,7 +33,7 @@ daemon_group.add_argument('--no-detach', action='store_true', help="do not detac
 # daemon_group.add_argument('--port', type=int, help='listen on alternate port number')
 
 
-parser.add_argument("files", nargs='+', help='Source ans destination file(s) or directory')
+parser.add_argument("files", nargs='*', help='Source ans destination file(s) or directory')
 
 args = parser.parse_args()
 
@@ -44,17 +44,17 @@ if len(args.files) == 1 : # Mode --list-only
     src = args.files[:]
     dest = None
     args.list_only = True
-    connection = 'local'
 
-elif len(args.files) == 0 : # Mode --daemon
+elif args.daemon :
+    host = args.address
     src = []
     dest = None
-    connection = 'daemon'
 
 else :
     src = args.files[:-1]
     dest = args.files[-1]
-    connection = 'local'
+
+connection = 'local'
 
 
 def decompose(file) :
@@ -108,7 +108,8 @@ else :
     mode = 'LOCAL'
     host = None
 
-
+if args.daemon :
+    host = args.address
 
 
 # Construction of the dictionary containing the flags and options
