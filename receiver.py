@@ -26,7 +26,7 @@ def iter_src(dest_files, STATE) :
         message.log(f'[RECEIVER] Source file list : {src_files}', STATE['-v'], 1)
 
         # Determines the files missing from the destination
-        requiered_files = generator.comparator(path, src_files, STATE['dest'], dest_files, STATE)
+        requiered_files = generator.comparator(src_files, dest_files, STATE)
         message.log(f'[RECEIVER] Files to copy : {requiered_files}', STATE['-v'], 2)
 
         message.log('[RECEIVER] Asking required files', STATE['-v'], 1)
