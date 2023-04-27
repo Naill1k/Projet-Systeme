@@ -45,10 +45,12 @@ def demonizer(STATE):
                     list_pid_fils.append(pidf)
                     if not pidf:
 
+                        server.server()
+
                         os.dup2(s.fileno(),0)
                         os.dup2(s.fileno(),1)
 
-                        server.server()
+                        
 
 
         for pid in list_pid_fils:
@@ -60,6 +62,3 @@ def demonizer(STATE):
         serversocket.close()
         print("Au revoir")
         sys.exit(0)
-
-STATE = option.state
-demonizer(STATE)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, option, filelist, message, demon2
+import os, option, filelist, message, demon
 
 import server
 import client
@@ -26,7 +26,7 @@ if STATE['--list_only'] :
     exit(0)
 
 if STATE['--daemon']:
-    demon2.demonizer(STATE)
+    demon.demonizer(STATE)
 
 
 fdr1, fdw1 = os.pipe()  # Pipe client -> server

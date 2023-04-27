@@ -1,4 +1,4 @@
-import os, socket, sys, signal, daemon, client, option
+import os, socket, sys, signal, daemon, client, option, server
 
 
 def demonizer(STATE):
@@ -38,16 +38,12 @@ def demonizer(STATE):
             list_pid_fils.append(pidf)
             if not pidf:
 
-                os.dup2(conn.fileno(),0)
+                server.server()
+
+                print("ok")
+
                 os.dup2(conn.fileno(),1)
-
-                client.client(STATE)
-
-                conn.close()
-                sys.exit(0)
-
-            else:
-                conn.close()
+                os.dup2(conn.fileno(),0)
 
 
         for pid in list_pid_fils:
@@ -56,7 +52,3 @@ def demonizer(STATE):
         serversocket.close()
         print("Au revoir")
         sys.exit(0)
-
-
-STATE = option.state
-demonizer(STATE)

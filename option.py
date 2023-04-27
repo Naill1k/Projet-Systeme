@@ -40,13 +40,13 @@ args = parser.parse_args()
 if args.quiet :
     args.verbose = -1 
 
-if len(args.files) == 1 : # Mode --list-only
+if len(args.files) == 0 : # Mode --list-only
     src = args.files[:]
     dest = None
     args.list_only = True
     connection = 'local'
 
-elif len(args.files) == 0 : # Mode --daemon
+elif len(args.files) == 1 : # Mode --daemon
     src = []
     dest = None
     connection = 'daemon'
