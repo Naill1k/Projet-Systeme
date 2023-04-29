@@ -20,23 +20,24 @@ def receive() :
     '''
     data = b''
     
-    buff = os.read(0, MAX_BYTES)
-    while len(buff) == MAX_BYTES :
-        data += buff
+    try :
         buff = os.read(0, MAX_BYTES)
+        while len(buff) == MAX_BYTES :
+            data += buff
+            buff = os.read(0, MAX_BYTES)
 
-    data += buff        
+        data += buff
+
+    except ConnectionResetError :
+        log('Connection closed by remote host', 0, 0)  
     
+
     try :
         data = pickle.loads(data)
-        # if (type(data) == str) and (data[:3] == 'LOG') :  # If data is a string starting with 'LOG', it is displayed
-        #     log(data[3:])
-        #     receive()
 
     except :
         log(f'Error reading input data : {data}', 0, 0)
         exit(1)
-        data = pickle.loads(data) # type: ignore
 
     return (None, data)
 
