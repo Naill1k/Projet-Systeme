@@ -3,7 +3,7 @@ import os, socket, select, sys, signal, daemon, server
 
 def demonizer(STATE):
 
-    with daemon.DaemonContext(stdout=open('démon.log','a+'),stderr=open('mrsync.err','a+'),detach_process=STATE['--no_detach']):
+    with daemon.DaemonContext(working_directory=os.path.expanduser("~"),stdout=open('démon.log','a+'),stderr=open('mrsync.err','a+'),detach_process=STATE['--no_detach']):
 
         def capture(sig,frame):
             global run
@@ -16,7 +16,7 @@ def demonizer(STATE):
         PORT = STATE['--port']
 
         MAXBYTES = 1024
-        # list_pid_fils = []
+        #list_pid_fils = []
 
         serversocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         serversocket.bind((HOST,PORT))
@@ -24,7 +24,6 @@ def demonizer(STATE):
         print(f"Server is listening with address '{HOST}' on port '{PORT}'")
         socketlist = [serversocket]
         run = True
-        os.chdir('home/naillik')
 
 
         while run:
@@ -37,22 +36,25 @@ def demonizer(STATE):
                     socketlist.append(clientsocket)
                     
                 else :
+                    
                     print('Executing server in CWD :', os.getcwd(), file=sys.stderr)
                     os.dup2(s.fileno(), 0)
                     os.dup2(s.fileno(), 1)
 
                     server.server()
                     exit(0)
+                    
+                    '''
+                    pidf = os.fork()
+                    list_pid_fils.append(pidf)
+                    if not pidf:
 
-                    # pidf = os.fork()
-                    # list_pid_fils.append(pidf)
-                    # if not pidf:
+                        os.dup2(s.fileno(), 0)
+                        os.dup2(s.fileno(), 1)
 
-                    #     os.dup2(s.fileno(), 0)
-                    #     os.dup2(s.fileno(), 1)
-
-                    #     server.server()
-                    #     exit(0)
+                        server.server()
+                        exit(0)
+                    '''
 
 
 

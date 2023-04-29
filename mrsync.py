@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, option, message, demon2
+import os, option, message, demon
 
 import server
 import client
@@ -27,7 +27,7 @@ if STATE['--list_only'] :
 
 if STATE['--daemon'] :
     message.log('Starting deamon', STATE['-v'], 2)
-    demon2.demonizer(STATE)
+    demon.demonizer(STATE)
     exit(0)
 
 if STATE['connection'] == 'daemon' :
