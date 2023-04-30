@@ -1,0 +1,110 @@
+[SERVER] STATE dictionnary : {'-v': 2, '-q': False, '-a': False, '-r': True, '-u': False, '-d': False, '-H': False, '-p': False, '-t': False, '--existing': False, '--ignore_existing': False, '--delete': False, '--force': False, '--timeout': 0, '--blocking_io': False, '-I': False, '--size_only': False, '--address': 'localhost', '--port': 10873, '--list_only': False, '--server': False, '--daemon': False, '--no_detach': False, 'mode': 'PUSH', 'connection': 'daemon', 'host': 'localhost', 'src': ['/home/naillik/Syst2/Projet-Systeme/reptest/SRC/'], 'dest': 'Syst2/Projet-Systeme/reptest/DEST/'}
+
+[SERVER] Becoming receiver
+
+[RECEIVER] Destination file list : [('CHAT.txt', os.stat_result(st_mode=33261, st_ino=66002, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=22711, st_atime=1682875206, st_mtime=1682875202, st_ctime=1682875202)), ('fichier_normal', os.stat_result(st_mode=33261, st_ino=66466, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=19, st_atime=1682872340, st_mtime=1682618571, st_ctime=1682618571)), ('victor_hugo', os.stat_result(st_mode=33261, st_ino=109613, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=589, st_atime=1682872875, st_mtime=1682875533, st_ctime=1682875533))]
+
+[RECEIVER] CWD : /home/naillik/Syst2/Projet-Systeme/reptest/DEST
+
+[RECEIVER] Ready to receive file list
+
+[RECEIVER] Source file list : [('CHAT.txt', os.stat_result(st_mode=33188, st_ino=93227, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=22711, st_atime=1682868731, st_mtime=1682597123, st_ctime=1682597123)), ('fichier_normal', os.stat_result(st_mode=33188, st_ino=65589, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=19, st_atime=1682872343, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/', os.stat_result(st_mode=16877, st_ino=65585, st_dev=2080, st_nlink=3, st_uid=1000, st_gid=1000, st_size=4096, st_atime=1682846989, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/vivre', os.stat_result(st_mode=33188, st_ino=65588, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=81, st_atime=1682868731, st_mtime=1681555036, st_ctime=1681555036)), ('conseils/courage', os.stat_result(st_mode=33188, st_ino=65586, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=88, st_atime=1682868732, st_mtime=1681555036, st_ctime=1681555036)), ('conseils/rien/', os.stat_result(st_mode=16877, st_ino=93373, st_dev=2080, st_nlink=2, st_uid=1000, st_gid=1000, st_size=4096, st_atime=1682846989, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/rien/test.txt', os.stat_result(st_mode=33188, st_ino=93380, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=4, st_atime=1682868732, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/dieu', os.stat_result(st_mode=33188, st_ino=65587, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=26, st_atime=1682868732, st_mtime=1681555036, st_ctime=1681555036)), ('victor_hugo', os.stat_result(st_mode=33188, st_ino=65590, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=588, st_atime=1682872899, st_mtime=1682872899, st_ctime=1682872899))]
+
+[RECEIVER] Files to copy : ['conseils/', 'conseils/vivre', 'conseils/courage', 'conseils/rien/', 'conseils/rien/test.txt', 'conseils/dieu', 'victor_hugo']
+
+[RECEIVER] Asking required files
+
+[RECEIVER] Creating directory 'conseils/'
+
+[RECEIVER] Asking for 'conseils/vivre'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'conseils/courage'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Creating directory 'conseils/rien/'
+
+[RECEIVER] Asking for 'conseils/rien/test.txt'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'conseils/dieu'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'victor_hugo'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Received all required files
+
+[SERVER] STATE dictionnary : {'-v': 2, '-q': False, '-a': False, '-r': True, '-u': False, '-d': False, '-H': False, '-p': False, '-t': False, '--existing': False, '--ignore_existing': False, '--delete': False, '--force': False, '--timeout': 0, '--blocking_io': False, '-I': False, '--size_only': False, '--address': 'localhost', '--port': 10873, '--list_only': False, '--server': False, '--daemon': False, '--no_detach': False, 'mode': 'PUSH', 'connection': 'daemon', 'host': 'localhost', 'src': ['/home/naillik/Syst2/Projet-Systeme/reptest/SRC/'], 'dest': 'Syst2/Projet-Systeme/reptest/DEST/'}
+
+[SERVER] Becoming receiver
+
+[RECEIVER] Destination file list : [('fichier_normal', os.stat_result(st_mode=33261, st_ino=66466, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=19, st_atime=1682872340, st_mtime=1682618571, st_ctime=1682618571)), ('victor_hugo', os.stat_result(st_mode=33261, st_ino=109613, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=589, st_atime=1682872875, st_mtime=1682875572, st_ctime=1682875572))]
+
+[RECEIVER] CWD : /home/naillik/Syst2/Projet-Systeme/reptest/DEST
+
+[RECEIVER] Ready to receive file list
+
+[RECEIVER] Source file list : [('CHAT.txt', os.stat_result(st_mode=33188, st_ino=93227, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=22711, st_atime=1682868731, st_mtime=1682597123, st_ctime=1682597123)), ('fichier_normal', os.stat_result(st_mode=33188, st_ino=65589, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=19, st_atime=1682872343, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/', os.stat_result(st_mode=16877, st_ino=65585, st_dev=2080, st_nlink=3, st_uid=1000, st_gid=1000, st_size=4096, st_atime=1682846989, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/vivre', os.stat_result(st_mode=33188, st_ino=65588, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=81, st_atime=1682868731, st_mtime=1681555036, st_ctime=1681555036)), ('conseils/courage', os.stat_result(st_mode=33188, st_ino=65586, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=88, st_atime=1682868732, st_mtime=1681555036, st_ctime=1681555036)), ('conseils/rien/', os.stat_result(st_mode=16877, st_ino=93373, st_dev=2080, st_nlink=2, st_uid=1000, st_gid=1000, st_size=4096, st_atime=1682846989, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/rien/test.txt', os.stat_result(st_mode=33188, st_ino=93380, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=4, st_atime=1682868732, st_mtime=1682601108, st_ctime=1682601108)), ('conseils/dieu', os.stat_result(st_mode=33188, st_ino=65587, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=26, st_atime=1682868732, st_mtime=1681555036, st_ctime=1681555036)), ('victor_hugo', os.stat_result(st_mode=33188, st_ino=65590, st_dev=2080, st_nlink=1, st_uid=1000, st_gid=1000, st_size=588, st_atime=1682872899, st_mtime=1682872899, st_ctime=1682872899))]
+
+[RECEIVER] Files to copy : ['CHAT.txt', 'conseils/', 'conseils/vivre', 'conseils/courage', 'conseils/rien/', 'conseils/rien/test.txt', 'conseils/dieu', 'victor_hugo']
+
+[RECEIVER] Asking required files
+
+[RECEIVER] Asking for 'CHAT.txt'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Creating directory 'conseils/'
+
+[RECEIVER] Asking for 'conseils/vivre'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'conseils/courage'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Creating directory 'conseils/rien/'
+
+[RECEIVER] Asking for 'conseils/rien/test.txt'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'conseils/dieu'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Asking for 'victor_hugo'
+
+[RECEIVER] Received content
+
+[RECEIVER] File copied succesfully
+
+[RECEIVER] Received all required files
+

@@ -3,7 +3,7 @@ import os, sys, pickle
 MAX_BYTES = 1024
 
 
-def send(tag, v) :
+def send(v) :
     '''
     Sends the data 'v' throught the file descriptor 'fd' with the associated tag
     '''
@@ -12,6 +12,7 @@ def send(tag, v) :
 
     if n != len(binaries) :
         log("Message couldn't be send entirely", 0, 0)
+        sys.exit(23)
 
 
 def receive() :
@@ -29,7 +30,8 @@ def receive() :
         data += buff
 
     except ConnectionResetError :
-        log('Connection closed by remote host', 0, 0)  
+        log('Connection closed by remote host', 0, 0)
+        sys.exit(11)
     
 
     try :
@@ -37,9 +39,9 @@ def receive() :
 
     except :
         log(f'Error reading input data : {data}', 0, 0)
-        exit(1)
+        sys.exit(11)
 
-    return (None, data)
+    return data
 
 
 

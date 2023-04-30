@@ -18,7 +18,7 @@ parser.add_argument('--ignore-existing', action='store_true', help='skip updatin
 parser.add_argument('--delete', action='store_true', help='delete extraneous files from dest dirs')
 parser.add_argument('--force', action='store_true', help='force deletion of dirs even if not empty')
 parser.add_argument('--timeout', type=int, default=0, help='set I/O timeout in seconds')
-parser.add_argument('--blocking-io', action='store_true', help='use blocking I/O for the remote shell')
+parser.add_argument('--blocking-io', action='store_true', default=False, help='use blocking I/O for the remote shell')
 parser.add_argument('-I', '--ignore-times', action='store_true', help="don't skip files that match size and time")
 parser.add_argument('--size-only', action='store_true', help='skip files that match in size')
 parser.add_argument('--address', default='localhost', help='bind address for outgoing socket to daemon')
@@ -33,12 +33,18 @@ daemon_group.add_argument('--no-detach', action='store_true', help="do not detac
 # daemon_group.add_argument('--port', type=int, help='listen on alternate port number')
 
 
-parser.add_argument("files", nargs='*', help='Source ans destination file(s) or directory')
+parser.add_argument("files", nargs='*', help='Source and destination file(s) or directory')
 
 args = parser.parse_args()
 
 if args.quiet :
-    args.verbose = -1 
+    args.verbose = -1
+
+if args.archive :
+    args.recursive = True
+    args.perms = True
+    args.times = True
+
 
 if len(args.files) == 1 : # Mode --list-only
     src = args.files[:]

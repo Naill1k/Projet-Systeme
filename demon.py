@@ -1,4 +1,4 @@
-import os, socket, sys, signal, daemon, server, time
+import os, socket, sys, signal, daemon, server
 
 
 def demonizer(STATE):

@@ -1,4 +1,4 @@
-import message, sender, receiver, os, socket
+import message, sender, receiver, os, sys, socket
 
 def client(STATE) :
     if STATE['connection'] == 'daemon' :
@@ -7,9 +7,9 @@ def client(STATE) :
 
     # Sends STATE dictionnary to server
     message.log(f'[CLIENT] Sending STATE dictionnary', STATE['-v'], 2)
-    message.send('State', STATE)
+    message.send(STATE)
     message.receive()  # ACK from server
-    message.send('ACK', None)
+    message.send(None)
     message.log('[CLIENT] Sent STATE dictionnary', STATE['-v'], 2)
     
     if STATE['mode'] == 'PULL' :
@@ -29,7 +29,12 @@ def connect2daemon(STATE) :
 
     # Connecting to daemon
     server_address = (STATE['host'], STATE['--port'])
-    sock.connect(server_address)
+    try :
+        sock.connect(server_address)
+
+    except ConnectionRefusedError :
+        message.log('ERROR : Unable to connect to daemon', STATE['-v'], 0)
+        sys.exit(10)
 
     os.dup2(sock.fileno(), 0)
     os.dup2(sock.fileno(), 1)

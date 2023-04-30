@@ -1,9 +1,9 @@
-import message, sender, receiver, os
+import message, sender, receiver
 
 def server() :
     # Asks the client for the STATE dictionnary
-    (tag, STATE) = message.receive()
-    message.send('ACK', None)
+    STATE = message.receive()
+    message.send(None)
     message.receive()  # ACK from client
     message.log(f'[SERVER] STATE dictionnary : {STATE}', STATE['-v'], 2)
 

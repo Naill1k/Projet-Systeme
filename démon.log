@@ -1,0 +1,5 @@
+Daemon is listening with address 'localhost' on port '10873'
+
+Signal SIGTERM received, sending the daemon back to hell.
+Killing all subprocesses and closing socket
+Au revoir

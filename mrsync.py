@@ -50,6 +50,7 @@ if os.fork() :  # Main process
     os.close(fdr1)
     os.close(fdw2)
 
+
     client.client(STATE)
     
 
@@ -63,12 +64,12 @@ else :  # Subprocess
     os.close(fdr2)
     os.close(fdw1)
 
+
     if STATE['connection'] == 'ssh' :
         message.log('Opening ssh connection', STATE['-v'], 1)
         path_mrsync = 'Syst2/Projet-Systeme/mrsync.py'  # The path for the mrsync.py file on the remote host
         os.execvp('ssh', ['ssh', '-e', 'none', STATE['host'], '--', path_mrsync, '--server', STATE['dest']])
 
 
-    if STATE['connection'] != 'daemon' :
-        server.server()
+    server.server()
 
