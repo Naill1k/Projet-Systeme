@@ -14,7 +14,10 @@ def receiver(STATE) :
     message.log(f'[RECEIVER] Destination file list : {dest_files}', STATE['-v'], 1)
 
 
-    os.chdir(STATE['dest'])
+    try : os.chdir(STATE['dest'])
+    except OSError :
+        message.log(f"[RECEIVER] Error : couldn't change directory", STATE['-v'], 0)
+        sys.exit(23)
     message.log(f'[RECEIVER] CWD : {os.getcwd()}', STATE['-v'], 2)
     
     iter_src(dest_files, STATE)
@@ -29,8 +32,12 @@ def iter_src(dest_files, STATE) :
         src_files = message.receive()  
         message.log(f'[RECEIVER] Source file list : {src_files}', STATE['-v'], 1)
 
-        if (STATE['--delete']) and (len(STATE['src']) == 1) :
-            pass
+        if (STATE['--delete']) and (len(STATE['src']) == 1) and (os.path.isdir(STATE['src'][0])):
+            for (file, stat) in dest_files :
+                if not file in [f[0] for f in src_files] :
+                    message.log(f"[RECEIVER] Deleting '{file}' : not present in the source", STATE['-v'], 1)
+                    try : os.remove(file)
+                    except OSError : message.log(f"[RECEIVER] Error : couldn't delete '{file}'", STATE['-v'], 0)
         
         # Determines the files missing from the destination
         requiered_files = generator.comparator(src_files, dest_files, STATE)

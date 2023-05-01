@@ -221,15 +221,6 @@ OPTIONS
               ply-linked  files is expensive.  You must separately specify -H.
 
 
-       --no-OPTION
-              You may turn off one or more implied options  by  prefixing  the
-              option  name with "no-".  Not all options may be prefixed with a
-              "no-": only options that are  implied  by  other  options or have 
-              different defaults in various circumstances 
-              (e.g. --no-dirs).
-              You  may  specify either the short or the long option name after
-              the "no-" prefix (e.g. --no-r is the same as --no-recursive).
-
        -r, --recursive
               This  tells  mrsync  to  copy  directories recursively.  See also
               --dirs (-d).
@@ -253,63 +244,7 @@ OPTIONS
               takes precedence.
 
 
-       -H, --hard-links
-              This  tells  mrsync to look for hard-linked files in the transfer
-              and link together the corresponding files on the receiving side.
-              Without  this  option,  hard-linked  files  in  the transfer are
-              treated as though they were separate files.
-
-              Note that mrsync can only detect hard links if both parts of  the
-              link are in the list of files being sent.
-
-
-       -p, --perms
-              This  option  causes  the receiving mrsync to set the destination
-              permissions to be the same as the source permissions.  (See also
-              the  --chmod  option for a way to modify what mrsync considers to
-              be the source permissions.)
-
-              When this option is off, permissions are set as follows:
-
-
-              o      Existing files (including  updated  files)  retain  their
-                     existing  permissions.
-
-              o      New files get their "normal" permission bits set  to  the
-                     source file's permissions masked with the receiving end's
-                     umask setting, and their special permission bits disabled
-                     except  in the case where a new directory inherits a set-
-                     gid bit from its parent directory.
-
-
-              Thus,  when  --perms is disabled, mrsync's  behavior is the same 
-              as that of other file-copy utilities, such as cp(1) and tar(1).
-
-              In summary: to give destination files (both  old  and  new)  the
-              source permissions, use --perms.  To give new files the destina-
-              tion-default   permissions   (while   leaving   existing   files
-              unchanged),  make  sure  that  the --perms option is off.
-
-              Like in recent versions of rsync, the  preservation  of 
-              the destination's setgid bit on newly-created directories 
-              when --perms is off is supported by  mrsync.
-              Older  rsync  versions  erroneously  preserved the three special
-              permission bits for newly-created files when  --perms  was  off,
-              while  overriding  the  destination's  setgid  bit  setting on a
-              newly-created directory.
-
-
-       -t, --times
-              This tells mrsync to transfer modification times along  with  the
-              files  and  update them on the remote system.  Note that if this
-              option is not used, the optimization that  excludes  files  that
-              have  not  been  modified cannot be effective; in other words, a
-              missing -t or -a will cause the next transfer to behave as if it
-              used -I, causing all files to be updated (though the mrsync algo-
-              rithm will make the update fairly efficient if the files haven't
-              actually changed, you're much better off using -t).
-
-       --existing, --ignore-non-existing
+       --existing
               This  tells mrsync to skip creating files (including directories)
               that do not exist yet on the destination.   If  this  option  is
               combined  with  the  --ignore-existing  option, no files will be
@@ -346,13 +281,6 @@ OPTIONS
               This option allows you to set a maximum I/O timeout in  seconds.
               If no data is transferred for the specified time then mrsync will
               exit. The default is 0, which means no timeout.
-
-       --blocking-io
-              This tells rsync to use blocking I/O  when  launching  a  remote
-              shell  transport.   It  defaults  to
-              using  non-blocking  I/O.   (Note  that ssh prefers non-blocking
-              I/O.)
-
 
 
        --address
@@ -489,7 +417,7 @@ SEE ALSO
 
 
 BUGS
-       [TO BE COMPLETED BY STUDENTS]
+       The options --blocking-io, -H, -t, -p and --no-OPTION are not supported.
 
 
 INTERNAL OPTIONS
