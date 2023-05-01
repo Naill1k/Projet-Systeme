@@ -10,14 +10,13 @@ def demonizer(STATE):
             Properly closes all communications
             '''
             nonlocal serversocket
-            print("Signal SIGTERM received, sending the daemon back to hell.")
+            print("Signal SIGTERM received, stopping the daemon.")
             
             print('Killing all subprocesses and closing socket')
             for pid in list_pid_fils:
                 os.kill(pid, signal.SIGUSR1)
 
             serversocket.close()
-            print("Au revoir")
             sys.exit(0)
 
 
