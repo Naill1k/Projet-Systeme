@@ -84,12 +84,17 @@ def ask_files(requiered_files, dest_files, STATE) :
 
 
             binaries = data.encode()
+            total_bytes_written = 0
+            try :
+                while total_bytes_written < len(binaries):
+                    bytes_written = os.write(fd, binaries[total_bytes_written:])
+                    if bytes_written == 0:
+                        raise
+                    total_bytes_written += bytes_written
 
-            n = os.write(fd, binaries)
-            if n != len(binaries) :
-                message.log(f"[RECEIVER] An error occurred while writing in the file '{file}' : {n} bytes written out of {len(binaries)}", STATE['-v'], 0)
-            else :
-                message.log(f'[RECEIVER] File copied succesfully', STATE['-v'], 2)
+            except :
+                message.log(f"[RECEIVER] Error during the copy of the file '{file}'", STATE['-v'], 0)
+                sys.exit(23)
 
 
 def timeout(sig, _) :
