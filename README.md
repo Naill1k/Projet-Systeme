@@ -42,6 +42,9 @@ GENERAL
        host, the copy occurs locally (see also the --list-only option).
 
 
+       When using a remote system (ssh or daemon), the path on the distant host must be specified from the personal directory or be an absolute path.
+
+
 SETUP
        See the file README for installation instructions.
 

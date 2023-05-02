@@ -5,19 +5,29 @@ MAX_BYTES = 1024
 
 def send(v) :
     '''
-    Sends the data 'v' throught the file descriptor 'fd' with the associated tag
+    Sends the data 'v' throught stdout
     '''
     binaries = pickle.dumps(v)
-    n = os.write(1, binaries)
+    total_bytes_written = 0
 
-    if n != len(binaries) :
-        log("Message couldn't be send entirely", 0, 0)
-        sys.exit(23)
+    try :
+        while total_bytes_written < len(binaries):
+            bytes_written = os.write(1, binaries[total_bytes_written:])
+            if bytes_written == 0:
+                log("Message couldn't be send entirely", 0, 0)
+                sys.exit(23)
+            total_bytes_written += bytes_written
+
+    except ConnectionResetError :
+        log('Connection closed by remote host', 0, 0)
+        sys.exit(11)
+
+
 
 
 def receive() :
     '''
-    Receive the data from the file descriptor 'fd' and returns a tuple (tag, v) associated
+    Receive the data from stdin and returns the value 'v' associated
     '''
     data = b''
     
@@ -35,13 +45,13 @@ def receive() :
     
 
     try :
-        data = pickle.loads(data)
+        v = pickle.loads(data)
 
     except :
         log(f'Error reading input data : {data}', 0, 0)
         sys.exit(11)
 
-    return data
+    return v
 
 
 
