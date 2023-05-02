@@ -14,7 +14,7 @@ def sender(STATE) :
         else :
             src_files = filelist.list_files(path, STATE['-v'])
 
-        message.log(f'[SENDER] Sending : {src_files}', STATE['-v'], 2)
+        message.log(f'[SENDER] Sending : {[file[0] for file in src_files]}', STATE['-v'], 2)
         message.send(src_files)
         message.log('[SENDER] Sent source file list', STATE['-v'], 2)
 

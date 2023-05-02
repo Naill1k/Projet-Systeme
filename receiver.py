@@ -11,7 +11,7 @@ def receiver(STATE) :
         dest_files = filelist.dir_list_files(STATE['dest'])
     else :
         dest_files = filelist.list_files(STATE['dest'], STATE['-v'])  
-    message.log(f'[RECEIVER] Destination file list : {dest_files}', STATE['-v'], 1)
+    message.log(f'[RECEIVER] Destination file list : {[file[0] for file in dest_files]}', STATE['-v'], 1)
 
 
     try : os.chdir(STATE['dest'])
@@ -30,7 +30,7 @@ def iter_src(dest_files, STATE) :
         # Asks the client for the list of files in the source
         message.log('[RECEIVER] Ready to receive file list', STATE['-v'], 2)
         src_files = message.receive()  
-        message.log(f'[RECEIVER] Source file list : {src_files}', STATE['-v'], 1)
+        message.log(f'[RECEIVER] Source file list : {[file[0] for file in src_files]}', STATE['-v'], 1)
 
         if (STATE['--delete']) and (len(STATE['src']) == 1) and (os.path.isdir(STATE['src'][0])):
             for (file, stat) in dest_files :
@@ -72,6 +72,7 @@ def ask_files(requiered_files, dest_files, STATE) :
 
             try :
                 fd = os.open(file, os.O_WRONLY | os.O_CREAT)
+                os.truncate(fd, 0)  # Empties the content of the file (in case it already existed)
                 
             except IsADirectoryError :
                 message.log(f"A directory already exists with the same name '{file}'", STATE['-v'], 0)
