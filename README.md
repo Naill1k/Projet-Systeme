@@ -19,8 +19,9 @@ SYNOPSIS
        mrsync [OPTION]... [USER@]HOST::SRC [DEST]
 
 DESCRIPTION
+       This project was realized in the context of the second year system programming course from Université Côte d'Azur, teached by professor Sid Touati.
        mrsync is a program that behaves in much the same way that rsync does, but
-       has less options. 
+       has less options.
 
 GENERAL
        mrsync copies files either to or from a remote host, or locally  on  the
